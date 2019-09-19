@@ -1,11 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Reset } from 'styled-reset';
 
+import GlobalStyle from './styles/global';
 import Routes from './routes';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Reset />
+      <GlobalStyle />
       <Routes />
     </BrowserRouter>
   );
