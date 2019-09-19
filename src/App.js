@@ -1,7 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import Routes from './routes';
 
 const App = () => {
-  return <h1>Di Shoes</h1>;
+  return (
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  );
 };
 
 export default App;
