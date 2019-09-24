@@ -5,7 +5,7 @@ import background from '../assets/images/background-image.svg';
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
-  * {
+  html {
     font-size: 10px;
     box-sizing: border-box;
   }
@@ -13,10 +13,11 @@ export default createGlobalStyle`
   body{
     background: #191920 url(${background}) no-repeat center top;
     -webkit-font-smoothing: antialiased;
+    font-size: 1.4rem;
   }
 
   body, input, button {
-    font: 1.4rem Roboto sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   #root {
