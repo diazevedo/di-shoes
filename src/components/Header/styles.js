@@ -6,6 +6,7 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   margin: 50px 0;
+
   h1 {
     color: #fff;
   }
@@ -14,9 +15,14 @@ export const Container = styled.header`
 export const LinkHome = styled(Link)``;
 
 export const Cart = styled(Link)`
-  /**Mine */
   width: 140px;
   text-align: right;
+
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
 
   svg {
     margin-left: 10px;
@@ -35,25 +41,5 @@ export const Cart = styled(Link)`
     display: block;
     color: #999;
     margin-top: 5px;
-  }
-`;
-
-export const CartFlex = styled(Link)`
-  display: flex;
-  align-items: center;
-
-  div {
-    text-align: right;
-    margin-right: 1rem;
-
-    strong {
-      display: block;
-      color: #fff;
-    }
-
-    span {
-      font-size: 1.2rem;
-      color: #999;
-    }
   }
 `;
