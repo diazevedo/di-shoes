@@ -5,9 +5,12 @@ import background from '../assets/images/background-image.svg';
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     font-size: 10px;
-    box-sizing: border-box;
   }
 
   body{
@@ -24,6 +27,7 @@ export default createGlobalStyle`
     max-width: 1020px;
     margin: 0 auto;
     padding: 0 20px 50px;
+    box-sizing: border-box;
   }
 
   button, a {

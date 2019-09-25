@@ -6,10 +6,7 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
   margin: 50px 0;
-
-  h1 {
-    color: #fff;
-  }
+  overflow: hidden;
 `;
 
 export const LinkHome = styled(Link)``;
@@ -41,5 +38,25 @@ export const Cart = styled(Link)`
     display: block;
     color: #999;
     margin-top: 5px;
+  }
+`;
+
+export const CartFlex = styled(Link)`
+  display: flex;
+  align-items: center;
+
+  div {
+    text-align: right;
+    margin-right: 10px;
+
+    strong {
+      display: block;
+      color: #fff;
+    }
+
+    span {
+      font-size: 12px;
+      color: #999;
+    }
   }
 `;

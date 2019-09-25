@@ -14,6 +14,14 @@ const Header = () => (
       <strong>Cart</strong>
       <span>0 Items</span>
     </Cart>
+
+    {/* <CartFlex to="/cart">
+      <div>
+        <strong>Cart</strong>
+        <span>0 Items</span>
+      </div>
+      <MdShoppingBasket size={36} color="#fff" />
+    </CartFlex> */}
   </Container>
 );
 
