@@ -1,48 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
+import formatPrice from '../../util/format';
 
-const Home = () => {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://media.hypedc.com/media/catalog/product/cache/1/image/750x/9df78eab33525d08d6e5fb8d27136e95/e/e/ee6355_blk_hy02.jpg"
-          alt="Adidas original NMD 360 Toddler"
-        />
+import api from '../../services/api';
 
-        <strong>Beautifull sneakers</strong>
-        <span>$129.90</span>
+class Home extends Component {
+  state = {
+    products: [],
+  };
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart color="#fff" size={16} />
-            <span>3</span>
-          </div>
+  async componentDidMount() {
+    const response = await api.get('/products');
 
-          <span>Add to cart</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://media.hypedc.com/media/catalog/product/cache/1/image/750x/9df78eab33525d08d6e5fb8d27136e95/e/e/ee6355_blk_hy02.jpg"
-          alt="Adidas original NMD 360 Toddler"
-        />
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
 
-        <strong>Beautifull sneakers</strong>
-        <span>$129.90</span>
+    this.setState({ products: data });
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart color="#fff" size={16} />
-            <span>3</span>
-          </div>
+  render() {
+    const { products } = this.state;
 
-          <span>Add to cart</span>
-        </button>
-      </li>
-    </ProductList>
-  );
-};
+    return (
+      <ProductList>
+        {products.map(product => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.title} />
+
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
+
+            <button type="button">
+              <div>
+                <MdAddShoppingCart color="#fff" size={16} />
+                <span>3</span>
+              </div>
+
+              <span>add to cart</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
+}
 
 export default Home;
