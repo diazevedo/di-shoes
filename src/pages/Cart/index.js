@@ -9,7 +9,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, ProductTable, Total } from './styles';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, dispatch }) => {
+  const handleDeleteItem = productId => {
+    dispatch({
+      type: 'REMOVE_FROM_CART',
+      id: productId,
+    });
+  };
+
   return (
     <Container>
       <ProductTable>
@@ -48,7 +55,10 @@ const Cart = ({ cart }) => {
                 <strong>{product.priceFormatted}</strong>
               </td>
               <td>
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={() => handleDeleteItem(product.id)}
+                >
                   <MdDelete size={20} color="#7159c1" />
                 </button>
               </td>
