@@ -5,17 +5,19 @@ import {
   MdDelete,
 } from 'react-icons/md';
 import PropTypes from 'prop-types';
-
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Container, ProductTable, Total } from './styles';
 
-const Cart = ({ cart, dispatch }) => {
+import * as CartActions from '../../store/modules/cart/actions';
+
+const Cart = ({ cart, removeFromCart, updateAmount }) => {
   const handleDeleteItem = productId => {
-    dispatch({
-      type: 'REMOVE_FROM_CART',
-      id: productId,
-    });
+    removeFromCart(productId);
   };
+
+  const increment = ({ id, amount }) => updateAmount(id, amount + 1);
+  const decrement = ({ id, amount }) => updateAmount(id, amount - 1);
 
   return (
     <Container>
@@ -23,7 +25,7 @@ const Cart = ({ cart, dispatch }) => {
         <thead>
           <tr>
             <th />
-            <th>product</th>
+            <th> product</th>
             <th>quantity</th>
             <th>subtotal</th>
             <th />
@@ -42,11 +44,11 @@ const Cart = ({ cart, dispatch }) => {
               </td>
               <td>
                 <div>
-                  <button type="button">
+                  <button type="button" onClick={() => decrement(product)}>
                     <MdRemoveCircleOutline size={20} color="#7159c1" />
                   </button>
                   <input type="number" readOnly value={product.amount} />
-                  <button type="button">
+                  <button type="button" onClick={() => increment(product)}>
                     <MdAddCircleOutline size={20} color="#7159c1" />
                   </button>
                 </div>
@@ -80,12 +82,20 @@ const Cart = ({ cart, dispatch }) => {
 
 Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object),
+  removeFromCart: PropTypes.func.isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 Cart.defaultProps = {
   cart: [],
 };
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
 const mapStateToProps = state => ({ cart: state.cart });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
