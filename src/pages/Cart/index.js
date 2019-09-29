@@ -4,10 +4,12 @@ import {
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
 import { Container, ProductTable, Total } from './styles';
 
-const Cart = () => {
+const Cart = ({ cart }) => {
   return (
     <Container>
       <ProductTable>
@@ -22,68 +24,36 @@ const Cart = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td>
-              <img
-                src="https://media.hypedc.com/media/catalog/product/cache/1/image/750x/9df78eab33525d08d6e5fb8d27136e95/e/e/ee6355_blk_hy02.jpg"
-                alt="Adidas original NMD 360 Toddler"
-              />
-            </td>
-            <td>
-              <strong>$258,10</strong>
-              <span>Nice Adidas</span>
-            </td>
-            <td>
-              <div>
+          {cart.map(product => (
+            <tr>
+              <td>
+                <img src={product.image} alt={product.title} />
+              </td>
+              <td>
+                <strong>{product.priceFormatted}</strong>
+                <span>{product.title}</span>
+              </td>
+              <td>
+                <div>
+                  <button type="button">
+                    <MdRemoveCircleOutline size={20} color="#7159c1" />
+                  </button>
+                  <input type="number" readOnly value={product.amount} />
+                  <button type="button">
+                    <MdAddCircleOutline size={20} color="#7159c1" />
+                  </button>
+                </div>
+              </td>
+              <td>
+                <strong>{product.priceFormatted}</strong>
+              </td>
+              <td>
                 <button type="button">
-                  <MdRemoveCircleOutline size={20} color="#7159c1" />
+                  <MdDelete size={20} color="#7159c1" />
                 </button>
-                <input type="number" readOnly value={1} />
-                <button type="button">
-                  <MdAddCircleOutline size={20} color="#7159c1" />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>$258,10</strong>
-            </td>
-            <td>
-              <button type="button">
-                <MdDelete size={20} color="#7159c1" />
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://media.hypedc.com/media/catalog/product/cache/1/image/750x/9df78eab33525d08d6e5fb8d27136e95/e/e/ee6355_blk_hy02.jpg"
-                alt="Adidas original NMD 360 Toddler"
-              />
-            </td>
-            <td>
-              <strong>$258,10</strong>
-              <span>Nice Adidas</span>
-            </td>
-            <td>
-              <div>
-                <button type="button">
-                  <MdRemoveCircleOutline size={20} color="#7159c1" />
-                </button>
-                <input type="number" readOnly value={1} />
-                <button type="button">
-                  <MdAddCircleOutline size={20} color="#7159c1" />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>$258,10</strong>
-            </td>
-            <td>
-              <button type="button">
-                <MdDelete size={20} color="#7159c1" />
-              </button>
-            </td>
-          </tr>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </ProductTable>
 
@@ -98,4 +68,14 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.object),
+};
+
+Cart.defaultProps = {
+  cart: [],
+};
+
+const mapStateToProps = state => ({ cart: state.cart });
+
+export default connect(mapStateToProps)(Cart);

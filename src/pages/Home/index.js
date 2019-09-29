@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { ProductList } from './styles';
 import formatPrice from '../../util/format';
 
@@ -18,6 +18,7 @@ class Home extends Component {
     const data = response.data.map(product => ({
       ...product,
       priceFormatted: formatPrice(product.price),
+      amount: 0,
     }));
 
     this.setState({ products: data });
@@ -50,7 +51,7 @@ class Home extends Component {
             >
               <div>
                 <MdAddShoppingCart color="#fff" size={16} />
-                <span>3</span>
+                <span>{product.amount}</span>
               </div>
 
               <span>add to cart</span>
@@ -65,5 +66,5 @@ class Home extends Component {
 export default connect()(Home);
 
 Home.propTypes = {
-  dispatch: propTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };

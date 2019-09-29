@@ -5,6 +5,7 @@ export const Container = styled.div`
   padding: 30px;
   background: #fff;
   border-radius: 4px;
+  text-transform: uppercase;
 
   footer {
     margin-top: 30px;
@@ -19,7 +20,6 @@ export const Container = styled.div`
       border-radius: 4px;
       padding: 12px 20px;
       font-weight: bold;
-      text-transform: uppercase;
       transition: background 0.2s;
 
       &:hover {
@@ -36,7 +36,6 @@ export const ProductTable = styled.table`
     color: #999;
     text-align: left;
     padding: 12px;
-    text-transform: uppercase;
   }
 
   tbody td {
