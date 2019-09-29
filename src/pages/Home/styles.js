@@ -3,7 +3,7 @@ import { darken } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
 
   li {
@@ -16,7 +16,7 @@ export const ProductList = styled.ul`
     img {
       align-self: center;
       width: 100%;
-      max-width: 275px;
+      max-width: 200px;
     }
 
     > strong {
