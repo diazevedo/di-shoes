@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import GlobalStyle from './styles/global';
 import Routes from './routes';
-
+import './config/ReactotronConfig';
 import store from './store';
 
 import Header from './components/Header';
