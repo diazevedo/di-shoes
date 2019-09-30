@@ -4,6 +4,7 @@ import {
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
+
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -13,13 +14,13 @@ import { Container, ProductTable, Total } from './styles';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
-const Cart = ({ cart, removeFromCart, updateAmount, total }) => {
+const Cart = ({ cart, removeFromCart, updateAmountRequest, total }) => {
   const handleDeleteItem = productId => {
     removeFromCart(productId);
   };
 
-  const increment = ({ id, amount }) => updateAmount(id, amount + 1);
-  const decrement = ({ id, amount }) => updateAmount(id, amount - 1);
+  const increment = ({ id, amount }) => updateAmountRequest(id, amount + 1);
+  const decrement = ({ id, amount }) => updateAmountRequest(id, amount - 1);
 
   return (
     <Container>
@@ -85,11 +86,13 @@ const Cart = ({ cart, removeFromCart, updateAmount, total }) => {
 Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object),
   removeFromCart: PropTypes.func.isRequired,
-  updateAmount: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
+  total: PropTypes.number,
 };
 
 Cart.defaultProps = {
   cart: [],
+  total: 0,
 };
 
 const mapDispatchToProps = dispatch =>
