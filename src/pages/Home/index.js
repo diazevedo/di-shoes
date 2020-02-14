@@ -12,9 +12,13 @@ import api from '../../services/api';
 class Home extends Component {
   state = {
     products: [],
+    loading: false,
+    imageStatus: 'LOADING',
   };
 
   async componentDidMount() {
+    this.setState({ loading: true });
+
     const response = await api.get('/products');
 
     const data = response.data.map(product => ({
@@ -23,7 +27,7 @@ class Home extends Component {
       amount: 0,
     }));
 
-    this.setState({ products: data });
+    this.setState({ products: data, loading: false });
   }
 
   handleAddProduct = id => {
@@ -32,15 +36,31 @@ class Home extends Component {
     addToCartRequest(id);
   };
 
+  handleImageErrored() {
+    this.setState({ imageStatus: 'failed to load' });
+  }
+
+  handleImageLoaded() {
+    this.setState({ imageStatus: 'loaded' });
+  }
+
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     const { amount } = this.props;
 
-    return (
+    return loading ? (
+      <p>Loading</p>
+    ) : (
       <ProductList>
         {products.map(product => (
           <li key={product.id}>
-            <img src={product.image} alt={product.title} />
+            <img
+              onLoad={() => this.handleImageLoaded}
+              onError={() => this.handleImageErrored}
+              src={product.image}
+              loading="lazy"
+              alt={product.title}
+            />
 
             <strong>{product.title}</strong>
             <span>{product.priceFormatted}</span>

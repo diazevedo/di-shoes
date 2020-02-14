@@ -38,10 +38,10 @@ function* addToCart({ id }) {
 }
 
 function* updateAmount({ id, amount }) {
-  console.tron.log(1);
   if (amount <= 0) return;
 
   const stock = yield call(api.get, `/stock/${id}`);
+
   if (amount > stock.data.amount) {
     toast.error('Amount ordered out of stock.');
     return;

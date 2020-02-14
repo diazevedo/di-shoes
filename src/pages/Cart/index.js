@@ -28,7 +28,7 @@ const Cart = ({ cart, removeFromCart, updateAmountRequest, total }) => {
         <thead>
           <tr>
             <th />
-            <th> product</th>
+            <th>product</th>
             <th>quantity</th>
             <th>subtotal</th>
             <th />
