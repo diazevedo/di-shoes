@@ -81,6 +81,14 @@ export const ProductTable = styled.table`
   }
 `;
 
+export const BodyEmpty = styled.tbody`
+  td {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+  }
+`;
+
 export const Total = styled.div`
   display: flex;
   align-items: baseline;
