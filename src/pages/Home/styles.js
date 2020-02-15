@@ -1,5 +1,13 @@
 import styled from 'styled-components';
+import { Loader } from '../../components/Loader';
+
 import { darken } from 'polished';
+
+export const LoaderHome = styled(Loader)`
+  margin: 50px auto;
+  width: 8em;
+  height: 8em;
+`;
 
 export const ProductList = styled.ul`
   display: grid;
@@ -12,11 +20,20 @@ export const ProductList = styled.ul`
     background-color: #fff;
     border-radius: 4px;
     padding: 20px;
+    position: relative;
 
     img {
-      align-self: center;
+      position: absolute;
+      left: 50%;
+      top: 5%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: 200px;
+      height: 200px;
+      background: #bcbcbc;
+      border-radius: 4px;
+      opacity: ${props => props.show};
+      transition: opacity 0.5s linear;
     }
 
     > strong {

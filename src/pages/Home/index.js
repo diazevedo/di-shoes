@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { ProductList } from './styles';
+import { ProductList, LoaderHome } from './styles';
 import formatPrice from '../../util/format';
 import * as CartActions from '../../store/modules/cart/actions';
 
@@ -12,13 +12,10 @@ import api from '../../services/api';
 class Home extends Component {
   state = {
     products: [],
-    loading: false,
-    imageStatus: 'LOADING',
+    loadingControl: 0,
   };
 
   async componentDidMount() {
-    this.setState({ loading: true });
-
     const response = await api.get('/products');
 
     const data = response.data.map(product => ({
@@ -27,7 +24,7 @@ class Home extends Component {
       amount: 0,
     }));
 
-    this.setState({ products: data, loading: false });
+    this.setState({ products: data });
   }
 
   handleAddProduct = id => {
@@ -36,35 +33,31 @@ class Home extends Component {
     addToCartRequest(id);
   };
 
-  handleImageErrored() {
-    this.setState({ imageStatus: 'failed to load' });
-  }
-
-  handleImageLoaded() {
-    this.setState({ imageStatus: 'loaded' });
-  }
+  increaseCounterLoading = () => {
+    this.setState(prevState => ({
+      loadingControl: prevState.loadingControl + 1,
+    }));
+  };
 
   render() {
-    const { products, loading } = this.state;
+    const { products, loadingControl } = this.state;
     const { amount } = this.props;
 
-    return loading ? (
-      <p>Loading</p>
-    ) : (
-      <ProductList>
+    return (
+      <ProductList show={loadingControl === products.length ? '1' : '0'}>
         {products.map(product => (
           <li key={product.id}>
-            <img
-              onLoad={() => this.handleImageLoaded}
-              onError={() => this.handleImageErrored}
-              src={product.image}
-              loading="lazy"
-              alt={product.title}
+            <LoaderHome
+              play={loadingControl < products.length ? 'play' : 'paused'}
             />
 
+            <img
+              src={product.image}
+              alt={product.title}
+              onLoad={this.increaseCounterLoading}
+            />
             <strong>{product.title}</strong>
             <span>{product.priceFormatted}</span>
-
             <button
               type="button"
               onClick={() => this.handleAddProduct(product.id)}
