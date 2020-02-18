@@ -5,7 +5,7 @@ The di-shoes web version
 <p>Made with React it is the web version of the di-shoes that also has an mobile version rigth <a src="https://github.com/diazevedo/di-shoes-mobile">.</a></p>
 
 <p align="center">
-  <img src="./gitAssests/dishoesweb.gif" width="300" height="300"/>
+  <img src="./gitAssets/dishoesweb.gif" width="300" height="300"/>
 </p>
 
 ## Installing / Running
